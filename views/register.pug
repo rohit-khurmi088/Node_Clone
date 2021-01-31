@@ -1,0 +1,40 @@
+extends layouts/login-layout.pug
+
+block content
+    div.login-container
+        h1 Register
+
+        //- Login Form
+        //- prevent default behaviour of form + call validateForm() function from script onsubmit()
+        form#registerForm(method="POST", onsubmit="event.preventDefault(), validateForm();")
+
+            //-Error message if all fields are not filled
+            p.errorMessage #{errorMessage}
+            
+            input(type="text" name="firstName", placeholder="First name", required="", value=firstName, autocomplete="on")
+            input(type="text" name="lastName", placeholder="Last name", required="",value=lastName, autocomplete="on")
+            input(type="text" name="username", placeholder="Username", required="", value=username ,autocomplete="on")
+            input(type="email" name="email", placeholder="Email", required="", value=email ,autocomplete="on")
+            input#password(type="password" name="password", placeholder="Password", required="", autocomplete="new-password")
+            input#passwordConf(type="password" name="passwordConf", placeholder="Confirm password", required="", autocomplete="new-password")
+
+            input(type="submit", value="Register")
+        a(href="/login") Already have an account? Login here.
+
+    //- ---------Script -----------
+    script.
+        var passwordField = document.getElementById("password")
+        var passwordConfirmField = document.getElementById("passwordConf")
+        var form = document.getElementById("registerForm")
+        
+        //-validate if password & passwordConf matches
+        function validateForm(){
+            //- if passwords do not matcg
+            if(passwordField.value != passwordConfirmField.value){
+                alert("Passwords do not match.Please try again.")
+            }else{
+                //-submit form
+                form.submit();
+            }
+        }
+        //- --------------------------

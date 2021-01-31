@@ -1,0 +1,29 @@
+{
+  "name": "clone",
+  "version": "1.0.0",
+  "description": "Twitter Clone ",
+  "main": "server.js",
+  "scripts": {
+    "start:dev": "nodemon node server.js",
+    "start:prod": "NODE_ENV=production nodemon node server.js",
+    "debug": "ndb server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "colors": "^1.4.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "mongodb": "^3.6.3",
+    "mongoose": "^5.11.14",
+    "morgan": "^1.10.0",
+    "ndb": "^1.1.5",
+    "node-sass-middleware": "^0.11.0",
+    "pug": "^3.0.0"
+  }
+}
