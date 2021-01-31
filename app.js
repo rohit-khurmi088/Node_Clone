@@ -60,6 +60,7 @@ app.use(session({
 //=======================
 const loginRoutes = require('./routes/loginRoutes');
 const registerRoutes = require('./routes/registerRoutes');
+const logoutRoutes = require('./routes/logoutRoutes');
 
 //HOMEPAGE - access on login
 app.get("/", requireLogin, (req, res, next) => {
@@ -72,7 +73,7 @@ app.get("/", requireLogin, (req, res, next) => {
 
 app.use('/login', loginRoutes);
 app.use('/register', registerRoutes);
-
+app.use('/logout', logoutRoutes);
 
 
 

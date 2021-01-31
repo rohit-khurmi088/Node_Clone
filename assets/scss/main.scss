@@ -1,0 +1,87 @@
+/* ------- Colors ---------*/
+$color-blue: #1FA2F1;
+$color-icon-background:#d4edff;
+$color-border-ligntGrey: rgb(230,236,240);
+$color-link: #212529;
+
+/*------ Variables -------*/
+$spacing:15px;
+
+
+
+.wrapper{
+
+    /*link*/
+    a{
+        color: inherit; /*from parent elemtnt*/
+        &:hover{
+            color: inherit;
+            text-decoration: none;
+        }
+    }
+ 
+    /*customizing h1*/
+    h1{
+        font-size: 19px;
+        font-weight: 800;
+        margin: 0;
+    }
+
+    /*Navbar*/
+    nav{
+        /*background-color: lightblue;*/
+        display:flex;
+        flex-direction:column; /*down*/
+        align-items:flex-end;
+        height:100%;
+
+        .blue{
+            color:$color-blue;
+        }
+        
+        /*icons*/
+        a{
+            /*to align in center*/
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            color: $color-link;
+            padding: 10px;
+            font-size: 30px;
+            width: 55px;
+            height: 55px;
+
+            &:hover{
+                background-color: $color-icon-background;
+                border-radius: 50%;
+                color: $color-blue;
+            }
+        }
+    }
+
+    /* main Section */
+    .mainSectionContainer{
+        /*background-color: blue;*/
+        padding: 0;
+        border-right: 1px solid $color-border-ligntGrey;
+        border-left: 1px solid $color-border-ligntGrey;
+        display: flex;
+        flex-direction: column;
+
+        /*Title*/
+        .titleContainer{
+            padding: 0 $spacing; /*top,down=0*/
+            height: 53px;
+            /*center*/
+            display: flex;
+            align-items: center;
+            /*border bottom*/
+            border-bottom: 1px solid $color-border-ligntGrey;
+            flex-shrink: 0; /*stops collapsing*/
+            h1{
+               flex: 1; /*right side*/ 
+            }
+        }
+    }
+}

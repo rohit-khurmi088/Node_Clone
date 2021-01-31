@@ -4,5 +4,59 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title #{pageTitle}
-    body
-        block content
+
+        //-Bootstrap
+        link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css', integrity='sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh', crossorigin='anonymous')
+        
+        //- CSS
+        link(rel="stylesheet", href="/css/main.css")
+    body      
+        //- wrapper
+        div.wrapper
+
+            //-row
+            div.row 
+
+                //-Header(right)
+                nav.col-2
+                    //- icons - links
+                    
+                    a.blue(href="/")
+                        i.fab.fa-earlybirds
+                    a(href="/")
+                        i.fas.fa-home
+                    a(href="/search")
+                        i.fas.fa-search
+                    a(href="/notifications")
+                        i.fas.fa-bell
+                    a(href="/messages")
+                        i.fas.fa-envelope
+                    a(href="/profile")
+                        i.fas.fa-user
+                    a(href="/logout")
+                        i.fas.fa-sign-out-alt
+
+
+
+                //- Body(main section)
+                //- col=10 when footer hidden(small screens), col=8  when footer visible(medium screens), largeScreen = col-6
+                div.mainSectionContainer.col-10.col-md-8.col-lg-6
+                    
+                    //-titleContainer
+                    div.titleContainer
+                        h1 #{pageTitle}
+                    
+                    
+                    block content
+                    
+                //- Footer(left) 
+                //- display=none(Small screen), display=block medium screens, largeScreen = col-4
+                div.d-none.d-md-block.col-md-2.col-lg-4
+                    span 3rd Column
+
+        //- FontAwesome Kit
+        script(src='https://kit.fontawesome.com/d1e1a593ee.js', crossorigin='anonymous')
+        //- Bootstrap Scripts
+        script(src='https://code.jquery.com/jquery-3.5.1.min.js', integrity='sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=', crossorigin='anonymous')
+        script(src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js', integrity='sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo', crossorigin='anonymous')
+        script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js', integrity='sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6', crossorigin='anonymous')
