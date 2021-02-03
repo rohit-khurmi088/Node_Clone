@@ -3,14 +3,26 @@ $color-blue: #1FA2F1;
 $color-icon-background:#d4edff;
 $color-border-ligntGrey: rgb(230,236,240);
 $color-link: #212529;
+$-color-disabled: #9BD1F9;
+$color-grey-text: rgb(101,119,134);
+$grey-button-text: rgba(0,0,0,0.34);
 
 /*------ Variables -------*/
 $spacing:15px;
+$common-font-size:19px;
 
 
+*{
+    outline: none !important;
+}
 
+
+//-----------------
+// WRAPPER (ROW)
+//-----------------
 .wrapper{
 
+    //================= COMMON STYLES =================
     /*link*/
     a{
         color: inherit; /*from parent elemtnt*/
@@ -22,12 +34,16 @@ $spacing:15px;
  
     /*customizing h1*/
     h1{
-        font-size: 19px;
+        font-size: $common-font-size;
         font-weight: 800;
         margin: 0;
     }
+   //---------------------------------------------------
 
-    /*Navbar*/
+
+    //=============
+    /* Navbar    */
+    //============
     nav{
         /*background-color: lightblue;*/
         display:flex;
@@ -60,7 +76,9 @@ $spacing:15px;
         }
     }
 
-    /* main Section */
+    //===========================
+    /* MAIN SECTION CONTAINER */
+    //===========================
     .mainSectionContainer{
         /*background-color: blue;*/
         padding: 0;
@@ -83,5 +101,151 @@ $spacing:15px;
                flex: 1; /*right side*/ 
             }
         }
+
+        //____________________________
+        /*-- CREATE POST Container  --*/
+        //____________________________
+        //POST Form CONTAINER
+        .postFormContainer{
+            display: flex;
+            padding: $spacing;
+            border-bottom: 10px solid $color-border-ligntGrey;
+            flex-shrink: 0; /*for safari*/
+
+            /*Image Container*/
+            .userImageContainer{
+                width: 50px;
+                height: 50px;
+
+               /*Responsive Image*/
+                img{
+                    width:100%; /*100% of container*/
+                    border-radius: 50%;
+                   background-color: white;
+                }
+            }
+
+            /*TEXTAREA Container*/
+            .textareaContainer{
+                flex: 1; /*TakeUp remaining space of the container*/
+                padding-left: $spacing;
+
+                //textarea
+                textarea{
+                    width: 100%;
+                    border: none;
+                    resize: none;
+                    font-size: $common-font-size;
+                }
+
+                /*Button*/
+                #submitPostButton{
+                    background-color: $color-blue;
+                    color: white;
+                    border: none;
+                    border-radius: 48px;
+                    padding: 7px 14px;
+
+                    &:disabled{
+                        background-color: $-color-disabled;
+                    }
+                }
+            }
+        }  
+
+        //___________________________
+        /*-- SHOW POSTS CONTAINER --*/
+        //___________________________
+        .postsContainer{
+            .post{
+                display: flex;
+                flex-direction: column;
+                padding: $spacing;
+                cursor: pointer;
+                flex-shrink: 0;
+                border:1px solid $color-border-ligntGrey;
+
+                //MainContent Container
+                .mainContentContainer{
+                    display: flex; /*row by default*/
+                    flex:1; /*occupy full remaining width of container*/
+
+                    //.userImageContainer
+
+                    //PostContent Container
+                    .postContentContainer{
+                        padding-left:$spacing;
+                        display: flex;
+                        flex: 1;
+                        flex-direction: column;
+
+                        //Header
+                        .header{
+                            span{
+                                padding-right: 5px;
+                            }
+                            a{
+                                padding-right: 5px;
+                                &:hover{
+                                    text-decoration: underline;
+                                }
+                            }
+
+                            .displayName{
+                                font-weight: bold;
+                            }
+                            .userName,.date{
+                                color: $color-grey-text;
+                            }
+                        }
+                    }
+
+                    //Post Body
+
+                    //Post Footer
+                    .postFooter{
+                        display: flex;
+                        //flex:1; /*occupy full container width*/
+                        align-items: center;
+
+                        .postButtonContainer{
+                            flex:1; /*occupy full container width*/
+                            display: flex;
+                            //flex-direction: row;
+                         
+                            button{
+                                flex:1 !important; /*occupy full container width*/
+                                padding: 2px 5px;
+                                background: transparent;
+                                color: $grey-button-text;
+                                border: none !important;
+
+                                &:hover{
+                                    border-color: #d4adff;
+                                    border-radius: 50%;
+                                    color: $color-blue;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
     }
 }
+
+
+ /*Image Container*/
+ .userImageContainer{
+    width: 50px;
+    height: 50px;
+
+   /*Responsive Image*/
+    img{
+        width:100%; /*100% of container*/
+        border-radius: 50%;
+       background-color: white;
+    }
+}
+

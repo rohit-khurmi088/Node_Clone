@@ -39,7 +39,7 @@ const userSchema = new mongoose.Schema({
     //profilePic
     profilePic:{
         type:String,
-        default:"/images/avatar1.png"
+        default:"/images/avatar1.jpeg"
     }
 },{
     //createdAt & updatedAt

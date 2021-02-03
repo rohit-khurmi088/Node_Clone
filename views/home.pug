@@ -1,5 +1,7 @@
 extends layouts/main-layout.pug
 
 block content
-    h1 Welcome to Social Clone!
-    p username: #{user.username} 
+    +createPostForm(user)
+    //- prepended textarea value to postsContainer
+    div.postsContainer
+    

@@ -1,10 +1,13 @@
 /* ------- Colors ---------*/
 /*------ Variables -------*/
+* {
+  outline: none !important; }
+
 .wrapper {
   /*link*/
   /*customizing h1*/
-  /*Navbar*/
-  /* main Section */ }
+  /* Navbar    */
+  /* MAIN SECTION CONTAINER */ }
   .wrapper a {
     color: inherit;
     /*from parent elemtnt*/ }
@@ -46,7 +49,9 @@
     border-left: 1px solid #e6ecf0;
     display: flex;
     flex-direction: column;
-    /*Title*/ }
+    /*Title*/
+    /*-- CREATE POST Container  --*/
+    /*-- SHOW POSTS CONTAINER --*/ }
     .wrapper .mainSectionContainer .titleContainer {
       padding: 0 15px;
       /*top,down=0*/
@@ -61,3 +66,94 @@
       .wrapper .mainSectionContainer .titleContainer h1 {
         flex: 1;
         /*right side*/ }
+    .wrapper .mainSectionContainer .postFormContainer {
+      display: flex;
+      padding: 15px;
+      border-bottom: 10px solid #e6ecf0;
+      flex-shrink: 0;
+      /*for safari*/
+      /*Image Container*/
+      /*TEXTAREA Container*/ }
+      .wrapper .mainSectionContainer .postFormContainer .userImageContainer {
+        width: 50px;
+        height: 50px;
+        /*Responsive Image*/ }
+        .wrapper .mainSectionContainer .postFormContainer .userImageContainer img {
+          width: 100%;
+          /*100% of container*/
+          border-radius: 50%;
+          background-color: white; }
+      .wrapper .mainSectionContainer .postFormContainer .textareaContainer {
+        flex: 1;
+        /*TakeUp remaining space of the container*/
+        padding-left: 15px;
+        /*Button*/ }
+        .wrapper .mainSectionContainer .postFormContainer .textareaContainer textarea {
+          width: 100%;
+          border: none;
+          resize: none;
+          font-size: 19px; }
+        .wrapper .mainSectionContainer .postFormContainer .textareaContainer #submitPostButton {
+          background-color: #1FA2F1;
+          color: white;
+          border: none;
+          border-radius: 48px;
+          padding: 7px 14px; }
+          .wrapper .mainSectionContainer .postFormContainer .textareaContainer #submitPostButton:disabled {
+            background-color: #9BD1F9; }
+    .wrapper .mainSectionContainer .postsContainer .post {
+      display: flex;
+      flex-direction: column;
+      padding: 15px;
+      cursor: pointer;
+      flex-shrink: 0;
+      border: 1px solid #e6ecf0; }
+      .wrapper .mainSectionContainer .postsContainer .post .mainContentContainer {
+        display: flex;
+        /*row by default*/
+        flex: 1;
+        /*occupy full remaining width of container*/ }
+        .wrapper .mainSectionContainer .postsContainer .post .mainContentContainer .postContentContainer {
+          padding-left: 15px;
+          display: flex;
+          flex: 1;
+          flex-direction: column; }
+          .wrapper .mainSectionContainer .postsContainer .post .mainContentContainer .postContentContainer .header span {
+            padding-right: 5px; }
+          .wrapper .mainSectionContainer .postsContainer .post .mainContentContainer .postContentContainer .header a {
+            padding-right: 5px; }
+            .wrapper .mainSectionContainer .postsContainer .post .mainContentContainer .postContentContainer .header a:hover {
+              text-decoration: underline; }
+          .wrapper .mainSectionContainer .postsContainer .post .mainContentContainer .postContentContainer .header .displayName {
+            font-weight: bold; }
+          .wrapper .mainSectionContainer .postsContainer .post .mainContentContainer .postContentContainer .header .userName, .wrapper .mainSectionContainer .postsContainer .post .mainContentContainer .postContentContainer .header .date {
+            color: #657786; }
+        .wrapper .mainSectionContainer .postsContainer .post .mainContentContainer .postFooter {
+          display: flex;
+          align-items: center; }
+          .wrapper .mainSectionContainer .postsContainer .post .mainContentContainer .postFooter .postButtonContainer {
+            flex: 1;
+            /*occupy full container width*/
+            display: flex; }
+            .wrapper .mainSectionContainer .postsContainer .post .mainContentContainer .postFooter .postButtonContainer button {
+              flex: 1 !important;
+              /*occupy full container width*/
+              padding: 2px 5px;
+              background: transparent;
+              color: rgba(0, 0, 0, 0.34);
+              border: none !important; }
+              .wrapper .mainSectionContainer .postsContainer .post .mainContentContainer .postFooter .postButtonContainer button:hover {
+                border-color: #d4adff;
+                border-radius: 50%;
+                color: #1FA2F1; }
+
+/*Image Container*/
+.userImageContainer {
+  width: 50px;
+  height: 50px;
+  /*Responsive Image*/ }
+  .userImageContainer img {
+    width: 100%;
+    /*100% of container*/
+    border-radius: 50%;
+    background-color: white; }

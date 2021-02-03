@@ -1,0 +1,20 @@
+//- Mixins = reusable block of pug code
+//- user -> passed from '/' router
+
+//-  CREATE POST
+mixin createPostForm(user)
+    div.postFormContainer
+
+        //-image container
+        div.userImageContainer
+            img(src=user.profilePic, alt="User Profile-Pic")
+        
+        //- textareaContainer
+        div.textareaContainer
+            textarea#postTextarea(placeholder="What's happening?")
+            
+            //- Buttonscontainer
+            div.buttonsContainer
+                button#submitPostButton(disabled="")  Post
+
+

@@ -62,6 +62,17 @@ const loginRoutes = require('./routes/loginRoutes');
 const registerRoutes = require('./routes/registerRoutes');
 const logoutRoutes = require('./routes/logoutRoutes');
 
+
+//-------- API ROUTE -----------
+//POST API Routes
+const  postsApiRoute = require('./routes/api/posts');
+
+app.use('/api/posts', postsApiRoute);
+
+
+
+
+//--------------------------------
 //HOMEPAGE - access on login
 app.get("/", requireLogin, (req, res, next) => {
     var payload = {
