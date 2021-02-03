@@ -8,15 +8,26 @@ const Post = require('../../model/Post');
 
 
 //-------------------
-// GET POST
+// GET All POSTs
 //-------------------
 router.get('/', (req,res,next)=>{
-    
+    //find() - get all Posts
+    Post.find()
+    .populate("postedBy")    //POPULATE User data before showing Posts
+    .sort({"createdAt": -1}) //Sort by latest Post 1st (Decencing Order)
+    .then((results)=>{
+        res.status(200).send(results);
+    })
+    .catch((error)=>{
+        console.log(error);
+        //Bad request
+        return res.sendStatus(400);
+    })
 })
 
 
 //-------------------
-// CREATE POST
+// CREATE New POST
 //--------------------
 router.post('/', async(req,res,next)=>{
     //if error - nothing(empty textarea) to create Post

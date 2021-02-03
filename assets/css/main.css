@@ -157,3 +157,6 @@
     /*100% of container*/
     border-radius: 50%;
     background-color: white; }
+
+.noResults {
+  margin-left: 10px; }
