@@ -3,13 +3,15 @@
 //---------------------------------
 //AJAX GET
 $.get("/api/posts", (results, status,xhr)=>{
-    console.log(results);
+    //console.log(results);
     
     //pass post container => to append posts to postContainer
     outputPosts(results,$(".postsContainer"));
 });
 
-
+//___________________________________
+// {Function} to add Posts to container
+//___________________________________
 function outputPosts(results, container){
     container.html("");
     

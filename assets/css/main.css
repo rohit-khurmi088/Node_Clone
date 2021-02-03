@@ -130,18 +130,22 @@
             color: #657786; }
         .wrapper .mainSectionContainer .postsContainer .post .mainContentContainer .postFooter {
           display: flex;
+          flex: 1;
+          /*occupy full container width*/
           align-items: center; }
+          .wrapper .mainSectionContainer .postsContainer .post .mainContentContainer .postFooter .postButtonContainer.red button.active {
+            color: red; }
           .wrapper .mainSectionContainer .postsContainer .post .mainContentContainer .postFooter .postButtonContainer {
             flex: 1;
             /*occupy full container width*/
             display: flex; }
             .wrapper .mainSectionContainer .postsContainer .post .mainContentContainer .postFooter .postButtonContainer button {
-              flex: 1 !important;
-              /*occupy full container width*/
               padding: 2px 5px;
               background: transparent;
               color: rgba(0, 0, 0, 0.34);
               border: none !important; }
+              .wrapper .mainSectionContainer .postsContainer .post .mainContentContainer .postFooter .postButtonContainer button i, .wrapper .mainSectionContainer .postsContainer .post .mainContentContainer .postFooter .postButtonContainer button span {
+                pointer-events: none; }
               .wrapper .mainSectionContainer .postsContainer .post .mainContentContainer .postFooter .postButtonContainer button:hover {
                 border-color: #d4adff;
                 border-radius: 50%;

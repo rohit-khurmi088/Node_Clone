@@ -39,7 +39,7 @@
             content:textBox.val(),
         }
 
-        //AJAX POST Request
+        //----- AJAX POST Request -----
         $.post("/api/posts", data, (postData,status,xhr)=>{
 
             //-- postData => complete database of Post --
@@ -60,6 +60,83 @@
         });
     });
 
+
+    //-------------------------
+    // LIKE's Button 
+    //--------------------------
+    //document.on => to load this on page (Dynamic content)
+    //$(document).on(event,class/id, ()=>{});
+    $(document).on("click",".likeButton", (event)=>{
+        //alert("Liked Button Pressed");
+
+        //--- When Button is clicked -
+        // ----- find root level POST & get postId(data-id) from it ----
+        var button = $(event.target);
+        //console.log(button);
+
+        var postId = getPostIdfromElement(button);
+        //console.log(postId);
+
+        //----- AJAX Update -----
+        //UPDATE heart(Like button) when 
+        //api/posts/:Id/like
+        $.ajax({
+            url:`/api/posts/${postId}/like`,
+            type:"PUT",
+            success: (postData)=>{
+               // console.log(postData.likes.length);
+
+               //Find Span element in button + update text of it
+               button.find("span").text(postData.likes.length || "");
+
+               //** CHECK IF USER has liked the Post or not **
+               //(Check if:userId exists in Likes array of Post)
+               if(postData.likes.includes(userJs._id)){
+                   //add active class to button
+                   button.addClass("active");
+               }else{
+                    //remove active class to button
+                    button.removeClass("active");
+               }
+            }
+        });
+        
+
+    });
+    
+
+    //______________________________
+    // GET Post_ID for current Post
+    //______________________________
+    function getPostIdfromElement(element){
+        //give element then this function will loop through the tree to find postId from rootElement
+
+        //------ GET rootElement ------
+        //get rootElement (rootElement has class => 'post')
+        //.closest = jquery func - which goes up through the tree to find parent with specified class
+        //element != root elemet => loop through tree to get rootElement
+        //element = root element => dont loop through tree to get rootElement
+        var isRoot = element.hasClass(".post");
+        var rootElement = (isRoot == true)? isRoot: element.closest(".post");
+
+        //------ GET id(For clicked post) from rootElement ------
+        //data() - gives all related adata attributes to given element(eg: data-id,data-class etc...)
+        //postId = post 'id' value
+        var postId = rootElement.data().id;
+
+        //----- Return Post_ID -----
+        //If Post_ID is undefined
+        if(postId === undefined){
+            return alert("Post_ID is undefined");
+        }
+        //Else 
+        return postId;
+    }
+
+
+    //___________________________
+    // createPostHtml function
+    //___________________________
     //RETURNING -> textarea-value 
     function createPostHtml(postData){
         //returning -> textBox-value
@@ -79,7 +156,13 @@
             console.log('POST -> User object not Populated')
         }
 
-        return `<div class='post'>
+        //*****MAKE LIKE BUTTON still active when user refresh the page*****
+        //if user is logged in -> show likes(red)
+        //Show all Posts liked by the user -> when user is logged in
+        var likeButtonActiveClass = postData.likes.includes(userJs._id)? "active":" ";
+
+        //Give POST_id -> to eachPost - data-id='${postData._id}'
+        return `<div class='post' data-id='${postData._id}'>
                     <div class='mainContentContainer'>
                         <div class='userImageContainer'> 
                             <img src='${postedBy.profilePic}'>
@@ -98,11 +181,16 @@
                                     <button>
                                         <i class="far fa-comments"></i>
                                     </button>
-                                    <button>
+                                </div>
+                                <div class='postButtonContainer green'>
+                                    <button class='retweet'>
                                         <i class="fas fa-retweet"></i>
                                     </button>
-                                    <button>
+                                </div>
+                                <div class='postButtonContainer red'>
+                                    <button class='likeButton ${likeButtonActiveClass}'>
                                         <i class="far fa-heart"></i>
+                                        <span>${postData.likes.length || ""}</span>
                                     </button>
                                 </div>
                             </div>

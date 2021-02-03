@@ -14,6 +14,11 @@ html(lang="en")
         //- CSS
         link(rel="stylesheet", href="/css/main.css")
     body      
+        //- Buffering the user value into page script
+        //- to use req.session.user in common.js - JavaScript file
+        script. 
+           var userJs = !{userJs}
+
         //- wrapper
         div.wrapper
 

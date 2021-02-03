@@ -13,7 +13,13 @@ const postSchema = new mongoose.Schema({
         ref:"User"
     },
     //Post Pinned to Profile OR not
-    pinned:Boolean 
+    pinned:Boolean,
+    
+    //likes => array of users who liked the post
+    likes:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"User"
+    }]
 },{
     //createdAt & updatedAt
     timestamps:true

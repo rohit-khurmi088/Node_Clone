@@ -6,6 +6,7 @@ $color-link: #212529;
 $-color-disabled: #9BD1F9;
 $color-grey-text: rgb(101,119,134);
 $grey-button-text: rgba(0,0,0,0.34);
+$color-like-red: red;
 
 /*------ Variables -------*/
 $spacing:15px;
@@ -205,20 +206,34 @@ $common-font-size:19px;
                     //Post Footer
                     .postFooter{
                         display: flex;
-                        //flex:1; /*occupy full container width*/
+                        flex:1; /*occupy full container width*/
                         align-items: center;
 
+                        //ACTIVE/DEACTIVE like(heart) button
+                        .postButtonContainer.red{
+                            button.active{
+                                color: $color-like-red;
+                            }
+                        }
+
+
+                        
                         .postButtonContainer{
                             flex:1; /*occupy full container width*/
                             display: flex;
                             //flex-direction: row;
                          
                             button{
-                                flex:1 !important; /*occupy full container width*/
+                                //flex:1 !important; /*occupy full container width*/
                                 padding: 2px 5px;
                                 background: transparent;
                                 color: $grey-button-text;
                                 border: none !important;
+
+                                //**Dont register any pointer events- eg:Click(in ajax) on i, span**
+                                i,span{
+                                    pointer-events: none;
+                                }
 
                                 &:hover{
                                     border-color: #d4adff;
@@ -252,3 +267,5 @@ $common-font-size:19px;
 .noResults{
    margin-left: 10px;
 }
+
+

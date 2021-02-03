@@ -77,7 +77,8 @@ app.use('/api/posts', postsApiRoute);
 app.get("/", requireLogin, (req, res, next) => {
     var payload = {
         pageTitle: "Home",
-        user: req.session.user
+        user: req.session.user,                 //pass to pug file
+        userJs:JSON.stringify(req.session.user) //pass to js file
     }
     res.status(200).render("home", payload);
 })

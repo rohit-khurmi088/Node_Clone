@@ -40,7 +40,13 @@ const userSchema = new mongoose.Schema({
     profilePic:{
         type:String,
         default:"/images/avatar1.jpeg"
-    }
+    },
+
+    //likes => array of posts liked by the user
+    likes:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"Post"
+    }]
 },{
     //createdAt & updatedAt
     timestamps:true
