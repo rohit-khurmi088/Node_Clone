@@ -62,7 +62,7 @@
 
 
     //-------------------------
-    // LIKE's Button 
+    // LIKE's Button Handler
     //--------------------------
     //document.on => to load this on page (Dynamic content)
     //$(document).on(event,class/id, ()=>{});
@@ -100,10 +100,56 @@
                }
             }
         });
-        
+
+    });
+
+
+    //-------------------------
+    // RETWEET POST Button Handler
+    //--------------------------
+    //document.on => to load this on page (Dynamic content)
+    //$(document).on(event,class/id, ()=>{});
+    $(document).on("click",".retweetButton", (event)=>{
+        //alert("Retweet Button Pressed");
+
+        //--- When Button is clicked -
+        // ----- find root level POST & get postId(data-id) from it ----
+        var button = $(event.target);
+        //console.log(button);
+
+        var postId = getPostIdfromElement(button);
+        //console.log(postId);
+
+        //----- AJAX Update -----
+        //UPDATE heart(Like button) when 
+        //api/posts/:Id/like
+        $.ajax({
+            url:`/api/posts/${postId}/retweet`,
+            type:"POST",
+            success: (postData)=>{
+                console.log(postData);
+
+                // console.log(postData.retweetUsers.length);
+
+               //Find Span element in button + update text of it
+               button.find("span").text(postData.retweetUsers.length || "");
+
+                //** CHECK IF USER has retweet the Post or not **
+                //(Check if:userId exists in retweetUsers array of Post)
+                if(postData.retweetUsers.includes(userJs._id)){
+                    //add active class to button
+                    button.addClass("active");
+                }else{
+                    //remove active class from button
+                    button.removeClass("active");
+                }
+            }
+        });
 
     });
     
+    
+
 
     //______________________________
     // GET Post_ID for current Post
@@ -143,6 +189,30 @@
         //-- postData => complete database of Post --
         //return postData.content;
 
+        //--------------------------
+        //CHECK if Post is retweeted
+        //---------------------------
+        //Is the post retweeted
+        var isRetweet = postData.retweetData != undefined;
+        //console.log(isRetweet);
+
+        //Retweeted by
+        var retweetedBy = isRetweet ? postData.postedBy.username : null;
+
+        //If Post isRetweeted => set the postData to retweetedData
+        postData = isRetweet? postData.retweetData : postData;
+
+        /** RETWEETED POST html TEXT **/
+        var retweetText='';
+        //Set retweet Text (if post is retweeted)
+        if(isRetweet){
+            var retweetText = `<span>
+                                    <i class="fas fa-retweet"></i>
+                                    Retweeted by <a href='/profile/${retweetedBy}'>@${retweetedBy}</a>
+                                </span>`
+        }
+        //------------------------
+
         //Extracting user info. from postData
         var postedBy = postData.postedBy;
         var displayName = postedBy.firstName +" "+ postedBy.lastName;
@@ -150,6 +220,12 @@
         //timeStamp
         //var timeStamp = postData.createdAt;
         var timeStamp = timeDifference(new Date(), new Date(postData.createdAt));
+
+        //** Check if postData EXISTS (passed)**/
+        if(postData == undefined){
+            return console.log("Post object is null");
+        }
+
 
         //Check if no user for Post Exists =>Post not populated for 'User' data
         if(postedBy._id === undefined){
@@ -160,9 +236,21 @@
         //if user is logged in -> show likes(red)
         //Show all Posts liked by the user -> when user is logged in
         var likeButtonActiveClass = postData.likes.includes(userJs._id)? "active":" ";
+        
+        //*****MAKE RETWEET BUTTON still active when user refresh the page*****
+        //if user is logged in -> show retweets(green)
+        //Show all Posts Retweeted by the user -> when user is logged in
+        var retweetButtonActiveClass = postData.retweetUsers.includes(userJs._id)? "active":" ";
+
 
         //Give POST_id -> to eachPost - data-id='${postData._id}'
         return `<div class='post' data-id='${postData._id}'>
+                    <!-- If POST is Retweeted-->
+                    <div class='postActionContainer'>
+                        ${retweetText}
+                    </div>
+
+                    <!-- Main Post Container -->
                     <div class='mainContentContainer'>
                         <div class='userImageContainer'> 
                             <img src='${postedBy.profilePic}'>
@@ -183,8 +271,9 @@
                                     </button>
                                 </div>
                                 <div class='postButtonContainer green'>
-                                    <button class='retweet'>
+                                    <button class='retweetButton ${retweetButtonActiveClass}'>
                                         <i class="fas fa-retweet"></i>
+                                        <span>${postData.retweetUsers.length || ""}</span>
                                     </button>
                                 </div>
                                 <div class='postButtonContainer red'>

@@ -108,6 +108,11 @@
       cursor: pointer;
       flex-shrink: 0;
       border: 1px solid #e6ecf0; }
+      .wrapper .mainSectionContainer .postsContainer .post .postActionContainer {
+        padding-left: 35px;
+        font-size: 13px;
+        color: #657786;
+        margin-bottom: 5px; }
       .wrapper .mainSectionContainer .postsContainer .post .mainContentContainer {
         display: flex;
         /*row by default*/
@@ -133,8 +138,16 @@
           flex: 1;
           /*occupy full container width*/
           align-items: center; }
+          .wrapper .mainSectionContainer .postsContainer .post .mainContentContainer .postFooter .postButtonContainer.green button.active {
+            color: #17bf63; }
+          .wrapper .mainSectionContainer .postsContainer .post .mainContentContainer .postFooter .postButtonContainer.green button:hover {
+            background-color: rgba(23, 191, 99, 0.1);
+            color: #17bf63; }
           .wrapper .mainSectionContainer .postsContainer .post .mainContentContainer .postFooter .postButtonContainer.red button.active {
-            color: red; }
+            color: #e2225f; }
+          .wrapper .mainSectionContainer .postsContainer .post .mainContentContainer .postFooter .postButtonContainer.red button:hover {
+            background-color: rgba(226, 34, 95, 0.1);
+            color: #e2225f; }
           .wrapper .mainSectionContainer .postsContainer .post .mainContentContainer .postFooter .postButtonContainer {
             flex: 1;
             /*occupy full container width*/

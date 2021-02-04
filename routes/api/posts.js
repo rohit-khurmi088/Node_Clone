@@ -10,12 +10,17 @@ const Post = require('../../model/Post');
 //-------------------
 // GET All POSTs
 //-------------------
-router.get('/', (req,res,next)=>{
+router.get('/', async(req,res,next)=>{
     //find() - get all Posts
     Post.find()
     .populate("postedBy")    //POPULATE User data before showing Posts
+    .populate("retweetData")
     .sort({"createdAt": -1}) //Sort by latest Post 1st (Decencing Order)
-    .then((results)=>{
+    .then(async(results)=>{
+        //nested Populate(postedBy) for retweets
+        results = await User.populate(results, {path:"retweetData.postedBy"})
+        
+        //Sending Response
         res.status(200).send(results);
     })
     .catch((error)=>{
@@ -60,9 +65,9 @@ router.post('/', async(req,res,next)=>{
 
 
 
-//--------------------
-// UPDATE LIKE BUTTON
-//---------------------
+//---------------------------
+// UPDATE LIKE/Unlike BUTTON
+//---------------------------
 router.put("/:id/like", async(req,res,next)=>{
 
     var postId = req.params.id;        //from Url
@@ -80,7 +85,7 @@ router.put("/:id/like", async(req,res,next)=>{
     var option = isLiked? "$pull": "$addToSet";
     //console.log("Option:", option);
 
-    //3)Insert User likes (user likes the post)
+    //3)Insert/remove User likes (user likes the post)
     req.session.user = await User.findByIdAndUpdate(userId, { [option]: {likes: postId}}, {new:true})
     .catch((error)=>{
         console.log(error);
@@ -88,7 +93,7 @@ router.put("/:id/like", async(req,res,next)=>{
         res.sendStatus(400);
     })  
 
-    //4)Insert POST likes (update user_id in Post-likes[])
+    //4)Insert/remove POST likes (update user_id in Post-likes[])
     var post = await Post.findByIdAndUpdate(postId, { [option]: {likes: userId}}, {new:true})
     .catch((error)=>{
         console.log(error);
@@ -100,4 +105,76 @@ router.put("/:id/like", async(req,res,next)=>{
     res.status(200).send(post);
 });
 
+
+
+//---------------------------
+// POST's retweet BUTTON
+//---------------------------
+router.post("/:id/retweet", async (req,res,next)=>{
+
+    var postId = req.params.id;        //from Url
+    var userId = req.session.user._id; //loggedIn User
+    console.log("userId: ", userId);
+    
+    //1) Try to delete a RETWEET 
+    //(Check if POST already RETWEETED)
+    //if we are able to delete a retweet => Retweet already existed (based on condition - userId, retweetData contains postId)
+    //if post was not retweeted - deletedPost dont exists 
+    //if post was retweetd - deletPost exists 
+    //** findOneAndDelete() => delete the post + 'return deleted Post' **
+    var deletedPost = await Post.findOneAndDelete({postedBy:userId, retweetData:postId})
+    .catch((error)=>{
+        console.log(error);
+        //Bad Request
+        res.sendStatus(400);
+    })
+
+    //2)-- setOptions: TO Retweet OR UnRetweet POST --
+    //$addToSet: add an element to arry (Set = unique); - Retweet Post
+    //$pull: remove element from array - UnRetweet Post
+    //if post was not retweeted - deletedPost dont exists => Retweet Post
+    //if post was retweetd - deletPost exists => delete retweet(unretweet)
+    var option = deletedPost != null ? "$pull": "$addToSet";
+    //console.log("Option:", option);
+
+    //3) deletedPost - 'return deleted Post' 
+    var repost = deletedPost;
+
+    //repost = null => Nothing was deleted (Create Post(retweet))
+    //In case of retweet - content is not required, retweetData(by postId) = content
+    if(repost == null){
+        repost = await Post.create({ postedBy: userId, retweetData: postId})
+        .catch((error)=>{
+            console.log(error);
+            //Bad Request
+            res.sendStatus(400);
+        })
+    }
+
+    //Else if repost!= null 
+    //there is a post to be deleted (repost has a value)
+
+    //4)Insert/remove User retweets (user retweet the post) - using repostId
+    req.session.user = await User.findByIdAndUpdate(userId, { [option]: {retweets: repost._id}}, {new:true})
+     .catch((error)=>{
+         console.log(error);
+         //Bad Request
+         res.sendStatus(400);
+    })  
+
+    //5)Insert/remove POST retweet usersId (update user_id in Post- retweetUsers[])
+    var post = await Post.findByIdAndUpdate(postId, { [option]: {retweetUsers: userId}}, {new:true})
+    .catch((error)=>{
+        console.log(error);
+        //Bad Request
+        res.sendStatus(400);
+    })
+   
+    //Sending Response
+    return res.status(200).send(post);
+});
+
+
 module.exports = router;
+
+

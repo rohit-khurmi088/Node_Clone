@@ -19,7 +19,21 @@ const postSchema = new mongoose.Schema({
     likes:[{
         type: mongoose.Schema.Types.ObjectId,
         ref:"User"
-    }]
+    }],
+
+    //Retweet Users[]
+    //retweet users => array of users who retweeted the post
+    retweetUsers:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"User"
+    }],
+    
+    //retweeted Data
+    //retweetData = id's of post's we are retweeting
+    retweetData:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"Post"
+    }
 },{
     //createdAt & updatedAt
     timestamps:true

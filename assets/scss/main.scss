@@ -6,7 +6,10 @@ $color-link: #212529;
 $-color-disabled: #9BD1F9;
 $color-grey-text: rgb(101,119,134);
 $grey-button-text: rgba(0,0,0,0.34);
-$color-like-red: red;
+$color-like-red: rgb(226,34,95);
+$color-retweet-green: rgb(23,191,99);
+$-colore-like-bg: rgba(226,34,95,0.1);
+$-color-retweet-bg: rgba(23,191,99,0.1);
 
 /*------ Variables -------*/
 $spacing:15px;
@@ -166,6 +169,15 @@ $common-font-size:19px;
                 flex-shrink: 0;
                 border:1px solid $color-border-ligntGrey;
 
+
+                //**RETWEET Post Text**
+                .postActionContainer{
+                    padding-left:35px;
+                    font-size: 13px;
+                    color: $color-grey-text;
+                    margin-bottom: 5px;
+                }
+
                 //MainContent Container
                 .mainContentContainer{
                     display: flex; /*row by default*/
@@ -209,15 +221,28 @@ $common-font-size:19px;
                         flex:1; /*occupy full container width*/
                         align-items: center;
 
+                        //ACTIVE/DEACTIVE retweet  button
+                        .postButtonContainer.green{
+                            button.active{
+                                color: $color-retweet-green;
+                            }
+                            button:hover{
+                                background-color: $-color-retweet-bg;
+                                color: $color-retweet-green;
+                            }
+                        }
+
                         //ACTIVE/DEACTIVE like(heart) button
                         .postButtonContainer.red{
                             button.active{
                                 color: $color-like-red;
                             }
+                            button:hover{
+                                background-color: $-colore-like-bg;
+                                color: $color-like-red;
+                            }
                         }
 
-
-                        
                         .postButtonContainer{
                             flex:1; /*occupy full container width*/
                             display: flex;
